@@ -1,5 +1,7 @@
 package com.example.DIgitalLedgerApp.ServiceLayer;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,4 +19,33 @@ public class CustomerService {
 		
 	}
 
+	public Customers getCustomersByusername(String username) {
+		// TODO Auto-generated method stub
+		Customers cust =cr.getByUsername(username);
+		
+		if(cust==null) {
+			return null;
+		}
+		return cust;
+		
+	}
+
+	public Customers getByMobile(String searchQuery) {
+		// TODO Auto-generated method stub
+		Customers cust= cr.getByMobileNumber(searchQuery);
+		if(cust==null) {
+			return null;
+		}
+		return cust;
+	}
+	public Customers getbyemail(String email) {
+		// TODO Auto-generated method stub
+		Customers cust= cr.getByEmail(email).orElse(null);
+		if(cust==null) {
+			return null;
+		}
+		return cust;
+	}
+	
+	
 }

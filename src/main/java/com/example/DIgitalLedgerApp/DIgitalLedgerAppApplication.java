@@ -10,6 +10,8 @@ public class DIgitalLedgerAppApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DIgitalLedgerAppApplication.class, args);
+		System.out.println("Application started");
+		
 	}
 
 }

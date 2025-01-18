@@ -34,21 +34,19 @@
         <h1 style="text-align: center; margin-bottom: 20px; color: #333;">Sign Up</h1>
         <form action="/registerCustomer" method="post" onsubmit="return validateForm()">
             <div class="form-group" style="margin-bottom: 15px;">
-                <label for="firstname" style="display: block; font-weight: bold; margin-bottom: 5px;">First Name</label>
-                <input type="text" id="firstname" name="firstname" required style="width: calc(100% - 20px); padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px;">
+                <label for="username" style="display: block; font-weight: bold; margin-bottom: 5px;">User Name</label>
+                <input type="text" id="username" name="username" required style="width: calc(100% - 20px); padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px;">
             </div>
-            <div class="form-group" style="margin-bottom: 15px;">
-                <label for="lastname" style="display: block; font-weight: bold; margin-bottom: 5px;">Last Name</label>
-                <input type="text" id="lastname" name="lastname" required style="width: calc(100% - 20px); padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px;">
-            </div>
+            
             <div class="form-group" style="margin-bottom: 15px;">
                 <label for="email" style="display: block; font-weight: bold; margin-bottom: 5px;">Email</label>
                 <input type="email" id="email" name="email" required style="width: calc(100% - 20px); padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px;">
             </div>
             <div class="form-group" style="margin-bottom: 15px;">
                 <label for="mobile" style="display: block; font-weight: bold; margin-bottom: 5px;">Mobile</label>
-                <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" title="Enter a valid 10-digit mobile number" required style="width: calc(100% - 20px); padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px;">
+                <input type="tel" id="mobile" name="mobileNumber" pattern="[0-9]{10}" title="Enter a valid 10-digit mobile number" required style="width: calc(100% - 20px); padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px;">
             </div>
+            
             <div class="form-group" style="margin-bottom: 15px;">
                 <label for="password" style="display: block; font-weight: bold; margin-bottom: 5px;">Password</label>
                 <input type="password" id="password" name="password" required style="width: calc(100% - 20px); padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px;">
@@ -58,10 +56,22 @@
                 <input type="password" id="confirmPassword" required style="width: calc(100% - 20px); padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px;">
                 <div id="error" class="error" style="color: red; font-size: 12px; margin-top: 5px;"></div>
             </div>
+            
+            
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="address" style="display: block; font-weight: bold; margin-bottom: 5px;">Address</label>
+                <input type="text" id="address" name="address" required style="width: calc(100% - 20px); padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px;">
+            </div>
+              <div class="form-group" style="margin-bottom: 15px;">
+                <label for="passkey" style="display: block; font-weight: bold; margin-bottom: 5px;">Pass Key</label>
+                <input type="text" id="passkey" name="passkey" required style="width: calc(100% - 20px); padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px;">
+            </div>
             <div class="form-group" style="margin-bottom: 15px;">
                 <button type="submit" style="width: 100%; background-color: #28a745; color: white; border: none; padding: 10px; font-size: 16px; font-weight: bold; cursor: pointer; border-radius: 5px;">Sign Up</button>
             </div>
         </form>
+                <a href="login" class="login-link">Already have an account?  Log in</a>
+        
     </div>
 </body>
 </html>

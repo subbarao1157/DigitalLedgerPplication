@@ -19,6 +19,7 @@ public class Retailer {
     private String shopname;
     private String description;
     private String mobile;
+    private String password;
     private String shopAddress;
 
     @OneToMany(mappedBy = "retailer", cascade = CascadeType.ALL)
@@ -31,8 +32,10 @@ public class Retailer {
 		super();
 	}
 
-	public Retailer(Long id, String name, String email, String shopname, String description, String mobile ,String shopAddress,
-			List<Debt> debts) {
+	
+
+	public Retailer(Long id, String name, String email, String shopname, String description, String mobile,
+			String password, String shopAddress, List<Debt> debts) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -40,9 +43,24 @@ public class Retailer {
 		this.shopname = shopname;
 		this.description = description;
 		this.mobile = mobile;
+		this.password = password;
+		this.shopAddress = shopAddress;
 		this.debts = debts;
-		this.shopAddress=shopAddress;
 	}
+
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
 
 	public Long getId() {
 		return id;
