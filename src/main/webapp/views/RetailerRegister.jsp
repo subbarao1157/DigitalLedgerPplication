@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retailer Registration</title>
-     <script>
+    <script>
         function validateForm() {
             const password = document.getElementById("password").value;
             const confirmPassword = document.getElementById("confirmPassword").value;
@@ -25,9 +25,36 @@
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             height: 100vh;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #333;
+            padding: 10px 20px;
+            width: 100%;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            font-size: 16px;
+        }
+        .navbar a:hover {
+            background-color: #575757;
+            border-radius: 4px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
         }
 
         .registration-container {
@@ -38,6 +65,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             padding: 30px;
             text-align: center;
+            margin-top: 20px;
         }
 
         .registration-container h2 {
@@ -97,6 +125,18 @@
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <div class="logo">
+            <a href="/"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdmmfqIxacZcqJY1FM8HUGoWlomwjyBoUbUw&s" alt="Get Book Logo"></a>
+        </div>
+        <div>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </div>
+    </div>
+
     <div class="registration-container">
         <h2>Retailer Registration</h2>
         <form action="/registerRetailer" method="post" onsubmit="return validateForm()">
@@ -121,13 +161,13 @@
                 <input type="text" id="mobile" name="mobile" required>
             </div>
             
-            <div class="form-group" style="margin-bottom: 15px;">
-                <label for="password" style="display: block; font-weight: bold; margin-bottom: 5px;">Password</label>
-                <input type="password" id="password" name="password" required style="width: calc(100% - 20px); padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px;">
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
             </div>
-            <div class="form-group" style="margin-bottom: 15px;">
-                <label for="confirmPassword" style="display: block; font-weight: bold; margin-bottom: 5px;">Confirm Password</label>
-                <input type="password" id="confirmPassword" required style="width: calc(100% - 20px); padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px;">
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" required>
                 <div id="error" class="error" style="color: red; font-size: 12px; margin-top: 5px;"></div>
             </div>
             <div class="form-group">

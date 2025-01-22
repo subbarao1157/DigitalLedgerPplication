@@ -5,6 +5,8 @@
 <html>
 <head>
     <title>Customer Home</title>
+          <link rel="icon" type="image/x-icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdmmfqIxacZcqJY1FM8HUGoWlomwjyBoUbUw&s">
+    
     <style>
         body {
             font-family: Arial, sans-serif;

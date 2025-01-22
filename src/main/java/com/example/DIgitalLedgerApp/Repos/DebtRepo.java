@@ -13,4 +13,6 @@ public interface DebtRepo extends JpaRepository<Debt, Long>{
 
 	List<Debt> findByRetailerId(Long id);
 
+	List<Debt> findByCustomerUsername(String username);
+
 }

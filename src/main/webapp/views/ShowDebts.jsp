@@ -62,10 +62,10 @@
                     <tr>
                         <!-- <td>${debt.id}</td> -->
                        
-                        <td>${debt.customer.getUsername()}</br>
-            <p>Mobile: ${debt.customer.getMobileNumber()}</p></td> <!-- Assuming 'name' is an attribute of the Customer object -->
-             <td>${debt.amount}</td>
-             <td><button style="background-color:#D4D4D4; color:white">Remind</button></td>
+                     <td>${debt.customer.getUsername()}</br>
+                     <p>Mobile: ${debt.customer.getMobileNumber()}</p><p>Address: ${debt.customer.address}</p></td> <!-- Assuming 'name' is an attribute of the Customer object -->
+                     <td>${debt.amount}</td>
+                     <td><button>Remind</button></td>
                     </tr>
                 </c:forEach>
             </tbody>

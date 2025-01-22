@@ -19,4 +19,9 @@ public class DebtService {
 		return dr.findByRetailerId(id);
 	}
 
+	public List<Debt> getDebtsByCustomerUsername(String username) {
+		// TODO Auto-generated method stub
+		return dr.findByCustomerUsername(username);
+	}
+
 }

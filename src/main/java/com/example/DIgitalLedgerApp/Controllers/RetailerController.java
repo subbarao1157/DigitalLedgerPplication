@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.DIgitalLedgerApp.Models.Customers;
 import com.example.DIgitalLedgerApp.Models.Debt;
 import com.example.DIgitalLedgerApp.Models.Retailer;
+import com.example.DIgitalLedgerApp.Repos.CustomerRepo;
 import com.example.DIgitalLedgerApp.ServiceLayer.CustomerService;
 import com.example.DIgitalLedgerApp.ServiceLayer.DebtService;
 import com.example.DIgitalLedgerApp.ServiceLayer.RetailerService;
@@ -27,6 +28,9 @@ public class RetailerController {
 	
 	@Autowired
 	CustomerService cs;
+	
+	@Autowired
+	CustomerRepo cr;
 	
 	@Autowired
 	DebtService ds;
@@ -50,6 +54,13 @@ public class RetailerController {
 		return "searchcustomer";
 	}
 	
+	public static String generateRandomNumber() {
+		int a=1000 + (int)(Math.random() * 9000);
+		String b=String.valueOf(a);
+	    return b;
+	}
+
+	
     @PostMapping("/submit")
 	public String handleSubmit(@RequestParam("searchQuery") String searchQuery, Model model) {
 	          
@@ -58,9 +69,12 @@ public class RetailerController {
     	     model.addAttribute("Notfound", searchQuery);
     	     return "searchcustomer";
     	}
+    	cust.setPasskey(generateRandomNumber());
+    	cr.save(cust);
     	model.addAttribute("customer", cust);
     	return "passkey";
 	}
+    
     
     @PostMapping("/verifyPasskey")
     public String verifypasskey(Model model,@RequestParam("userpass") String userpass,

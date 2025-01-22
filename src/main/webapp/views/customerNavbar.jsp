@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Page Navbar</title>
+      <link rel="icon" type="image/x-icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdmmfqIxacZcqJY1FM8HUGoWlomwjyBoUbUw&s">
+    
     <style>
         body {
             margin: 0;
@@ -62,7 +64,7 @@
             <a href="/logout">Logout</a>
             <a href="profile">Profile</a>
             <a href="issue">Raise Issue</a>
-            <a href="/my-debts">My Debts</a>
+            <a href="my-debts">My Debts</a>
         </div>
     </nav>
 </body>

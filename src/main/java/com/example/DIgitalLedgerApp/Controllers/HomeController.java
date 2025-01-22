@@ -143,18 +143,6 @@ public class HomeController {
 //	public Principal retaillogin(Principal retailer) {
 //		return retailer;
 //	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@GetMapping("/register")
 	public String chooseRegister() {
 		return "chooseRegister";
@@ -175,6 +163,4 @@ public class HomeController {
 	public String contact() {
 		return "contact";
 	}
-
 }
-

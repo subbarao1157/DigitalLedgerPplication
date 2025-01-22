@@ -49,7 +49,9 @@
             <p><strong>Email:</strong> <%= customer.getEmail() %></p>
             <p><strong>Phone Number:</strong> <%= customer.getMobileNumber() %></p>
             <p><strong>Address:</strong> <%= customer.getAddress() %></p>
-            <p><strong>Pass Key:</strong> <%= customer.getPasskey() %></p>
+            <% if (customer.getPasskey() != null && !customer.getPasskey().isEmpty()) { %>
+                <p><strong>Pass Key:</strong> <%= customer.getPasskey() %></p>
+            <% } %>
         </div>
     </div>
 </body>
