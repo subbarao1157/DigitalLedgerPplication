@@ -72,8 +72,10 @@ public class MyUserService implements UserDetailsService {
 
         // Map role to GrantedAuthority
         GrantedAuthority authority = new SimpleGrantedAuthority(appUser.getRole());
+        
+        
 
-        // Return UserDetails object with username, password, and authorities
+        // Return UserDetails object with user name, password, and authorities
         return new User(appUser.getUsername(), appUser.getPassword(), List.of(authority));
     }
 }

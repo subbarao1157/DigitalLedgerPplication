@@ -6,6 +6,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Debt {
@@ -13,6 +17,7 @@ public class Debt {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private double amount;
+    
     @ManyToOne
     @JoinColumn(name = "retailer_id")
     private Retailer retailer;
@@ -21,51 +26,79 @@ public class Debt {
     @JoinColumn(name = "customer_id")
     private Customers customer;
 
-	public Debt(Long id, double amount, Retailer retailer, Customers customer) {
+    private String purchaseditems;
+    
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime addedAt;
+
+   
+
+    public Debt(Long id, double amount, Retailer retailer, Customers customer, String purchaseditems,
+			LocalDateTime addedAt) {
 		super();
 		this.id = id;
 		this.amount = amount;
 		this.retailer = retailer;
 		this.customer = customer;
+		this.purchaseditems = purchaseditems;
+		this.addedAt = addedAt;
 	}
 
 	public Debt() {
-		super();
+        super();
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.addedAt = LocalDateTime.now();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public Retailer getRetailer() {
+        return retailer;
+    }
+
+    public void setRetailer(Retailer retailer) {
+        this.retailer = retailer;
+    }
+
+    public Customers getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customers customer) {
+        this.customer = customer;
+    }
+
+    public LocalDateTime getAddedAt() {
+        return addedAt;
+    }
+
+    public void setAddedAt(LocalDateTime addedAt) {
+        this.addedAt = addedAt;
+    }
+
+	public String getPurchaseditems() {
+		return purchaseditems;
 	}
 
-	public Long getId() {
-		return id;
+	public void setPurchaseditems(String purchaseditems) {
+		this.purchaseditems = purchaseditems;
 	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
-
-	public Retailer getRetailer() {
-		return retailer;
-	}
-
-	public void setRetailer(Retailer retailer) {
-		this.retailer = retailer;
-	}
-
-	public Customers getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customers customer) {
-		this.customer = customer;
-	}
-
-    // Getters and Setters
-    
     
 }

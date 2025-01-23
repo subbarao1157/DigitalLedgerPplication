@@ -49,7 +49,8 @@
         </div>
         <form action="verifyPasskey" method="POST" style="display: flex; flex-direction: column; align-items: center;">
             <input type="text" name="userpass" placeholder="Enter pass key" required style="padding: 10px; font-size: 16px; margin-bottom: 10px; width: 300px; border-radius: 5px; border: 1px solid #ccc;">
-            <input type="text" name="amount" placeholder="Enter Amount" required style="padding: 10px; font-size: 16px; margin-bottom: 10px; width: 300px; border-radius: 5px; border: 1px solid #ccc;"> 
+            <input type="text" name="amount" placeholder="Enter Amount" required style="padding: 10px; font-size: 16px; margin-bottom: 10px; width: 300px; border-radius: 5px; border: 1px solid #ccc;">
+            <input type="text" name="purchased" placeholder="Purchased Items" required style="padding: 10px; font-size: 16px; margin-bottom: 10px; width: 300px; border-radius: 5px; border: 1px solid #ccc;">  
             <input type="hidden" name="usernumber" value=<%= customer.getMobileNumber() %> />
             <button type="submit" style="padding: 10px 20px; font-size: 16px; cursor: pointer; background-color: #007BFF; color: white; border: none; border-radius: 5px;">Verify</button>
         </form>

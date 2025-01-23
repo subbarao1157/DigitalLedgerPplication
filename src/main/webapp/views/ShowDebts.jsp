@@ -1,19 +1,18 @@
-<%@ page import="java.util.List" %>
-<%@ page import="com.example.DIgitalLedgerApp.Models.Debt" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ include file="RetailerNavbar.jsp" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<%-- The debts object and totalAmount are passed from the controller to this JSP via the model attribute --%>
-<% List<Debt> debts = (List<Debt>) request.getAttribute("debts"); %>
-<% Double totalAmount = (Double) request.getAttribute("totalamount"); %>
-
+<%@page import="java.util.List"%>
+<%@page import="com.example.DIgitalLedgerApp.Models.Debt"%>
+<%@page import="java.time.format.DateTimeFormatter"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="customerNavbar.jsp" %>
+<%
+    // Assuming the debts list is set as an attribute in the request
+    List<Debt> debts = (List<Debt>) request.getAttribute("debts");
+    double totalAmount = (request.getAttribute("totalamount") != null) ? (double) request.getAttribute("totalamount") : 0.0;
+%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retailer Debt Customers</title>
+    <title>Customer Debts</title>
     <style>
         table {
             width: 100%;
@@ -30,47 +29,42 @@
     </style>
 </head>
 <body>
-
-    <!-- Page Title -->
-    <h3>Debts</h3>
-
-    <!-- Display Total Amount -->
-    
-        <p><strong>Total Debt Amount: </strong>${totalamount}</p>
-    
-
-    <!-- Conditional Message if no debts -->
-    <c:if test="${empty debts}">
-        <p>No debts found for this retailer.</p>
-    </c:if>
-
-    <!-- Display debts in a table -->
-    <c:if test="${not empty debts}">
-        <table>
-            <thead>
+    <h1>Total Debt : <%= totalAmount %></h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Customers</th>
+                <th>Amount</th>
+                <th>Remind</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (debts != null) { 
+                for (Debt debt : debts) { 
+                	if(debt.getAddedAt()!=null){
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss");
+                    String formattedDate = debt.getAddedAt().format(formatter);
+                	
+            %>
                 <tr>
-                    <!--  <th>Debt ID</th> -->
-                    
-                    <th>Customer Name</th>
-                    <th>Amount</th>
-                    <th>Send Sms</th>
-                    
+                    <td>
+                        <%= debt.getCustomer().getUsername() %> <br>
+                        <p>Mobile: <%= debt.getCustomer().getMobileNumber() %></p>
+                        
+                    </td>
+                    <td>
+                        ₹ <%= debt.getAmount() %> <br>
+                        <p>Purchased: <%= debt.getPurchaseditems() %></p>
+                        <p><%= formattedDate %></p>
+                    </td>
+                    <td>
+                        <button>Tap To Pay</button>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="debt" items="${debts}">
-                    <tr>
-                        <!-- <td>${debt.id}</td> -->
-                       
-                     <td>${debt.customer.getUsername()}</br>
-                     <p>Mobile: ${debt.customer.getMobileNumber()}</p><p>Address: ${debt.customer.address}</p></td> <!-- Assuming 'name' is an attribute of the Customer object -->
-                     <td>${debt.amount}</td>
-                     <td><button>Remind</button></td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-    </c:if>
-
+            <% } 
+            }  
+         } %>
+        </tbody>
+    </table>
 </body>
 </html>

@@ -33,13 +33,14 @@ public class RetailerService {
 		return rr.getByName(username).get();
 	}
 	
-	public boolean verifyPasskey(String number,String userpass,double amount,String retailername) {
+	public boolean verifyPasskey(String number,String userpass,double amount,String retailername,String purchased) {
 		Customers cust=cr.getByMobileNumber(number);
 		Retailer ret=rr.getByName(retailername).get();
 		if(cust!=null  && ret!=null) {
 			if( cust.getPasskey().equals(userpass)) {
 				Debt debt=new Debt();
 				debt.setAmount(amount);
+				debt.setPurchaseditems(purchased);
 				debt.setCustomer(cust);
 				debt.setRetailer(ret);
 				dr.save(debt);
@@ -58,6 +59,7 @@ public class RetailerService {
 		}
 		return ret.getId();
 	}
+
 	
 	
 

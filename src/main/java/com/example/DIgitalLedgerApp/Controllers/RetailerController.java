@@ -80,11 +80,13 @@ public class RetailerController {
     public String verifypasskey(Model model,@RequestParam("userpass") String userpass,
     		                             @RequestParam("usernumber") String usernumber,
     		                             @RequestParam("amount") double amount,
+    		                             @RequestParam("purchased") String purchased,
     		                             Principal principal) {
     	String name=principal.getName().toString();
-    	boolean status= rs.verifyPasskey(usernumber,userpass,amount,name);
+    	boolean status= rs.verifyPasskey(usernumber,userpass,amount,name,purchased);
     	
     	if(status==true) {
+    		
     		return "DebtAddedSucess";
     	}
     	

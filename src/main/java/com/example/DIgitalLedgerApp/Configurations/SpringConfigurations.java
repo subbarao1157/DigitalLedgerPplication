@@ -62,6 +62,8 @@
 
 package com.example.DIgitalLedgerApp.Configurations;
 
+import java.util.Iterator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -89,10 +91,10 @@ public class SpringConfigurations {
 
     @Autowired
     UserDetailsService userDetailsService;
-    
+
     @Autowired
     CustomerRepo cr;
-    
+
     @Autowired
     LoggingUsersRepo lr;
 
@@ -101,52 +103,56 @@ public class SpringConfigurations {
         return http
                 .csrf(csrf -> csrf.disable())
                 .formLogin(form -> form
-                                .loginPage("/login")
-                                .loginProcessingUrl("/login")
-                                .successHandler(customSuccessHandler()) // Custom success handler for role-based routing
-                                .failureUrl("/login?error")
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .successHandler(customSuccessHandler()) // Custom success handler for role-based routing
+                        .failureUrl("/login?error")
                 )
                 .oauth2Login(oauth -> oauth
-                                .loginPage("/login")
-                                .successHandler(oauthsuccesshandler())
+                        .loginPage("/login")
+                        .successHandler(oauthsuccesshandler())
+                )
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/customer/**").hasRole("CUSTOMER") // Restrict access to customer pages
+                        .requestMatchers("/retailer/**").hasRole("RETAILER") // Restrict access to retailer pages
+                        .requestMatchers("/**").permitAll() // Allow access to all other pages
                 )
                 .build();
     }
-    
+
     @Bean
     public AuthenticationSuccessHandler oauthsuccesshandler() {
-    	 return (HttpServletRequest request, HttpServletResponse response, org.springframework.security.core.Authentication authentication) -> {
-             // Get the user's role
-             DefaultOAuth2User user =(DefaultOAuth2User) authentication.getPrincipal();
+        return (HttpServletRequest request, HttpServletResponse response, org.springframework.security.core.Authentication authentication) -> {
+            // Get the user's role
+            DefaultOAuth2User user = (DefaultOAuth2User) authentication.getPrincipal();
 
-             // Route based on role
-             String email=user.getAttribute("email").toString();
-             String name=user.getAttribute("name").toString();
-             
-             Customers cust1=cr.getByEmail(email).orElse(null);
-              
-             if(cust1 == null) {
-            	 Customers cust=new Customers();
-                 cust.setEmail(email);
-                 cust.setUsername(name);
-                 cust.setPassword("CUSTOMER");
-                 cust.setMobileNumber("0000000000");
-                 cust.setPasskey("111");
-                 
-                 LoggingUsers lu=new LoggingUsers();
-                 lu.setUsername(name);
-                 lu.setRole("ROLE_CUSTOMER");
-                 lu.setPassword("CUSTOMER");
-                 
-                 cr.save(cust);
-                 lr.save(lu);
-             }
-             response.sendRedirect("/customer/profile");
+            // Route based on role
+            String email = user.getAttribute("email").toString();
+            String name = user.getAttribute("name").toString();
 
-         };
-	}
+            Customers cust1 = cr.getByEmail(email).orElse(null);
 
-	@Bean
+            if (cust1 == null) {
+                Customers cust = new Customers();
+                cust.setEmail(email);
+                cust.setUsername(name);
+                cust.setPassword("CUSTOMER");
+                cust.setMobileNumber("0000000000");
+                cust.setPasskey("111");
+
+                LoggingUsers lu = new LoggingUsers();
+                lu.setUsername(name);
+                lu.setRole("ROLE_CUSTOMER");
+                lu.setPassword("CUSTOMER");
+
+                cr.save(cust);
+                lr.save(lu);
+            }
+            response.sendRedirect("/customer/profile");
+        };
+    }
+
+    @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(new BCryptPasswordEncoder(7));
@@ -159,10 +165,9 @@ public class SpringConfigurations {
     public AuthenticationSuccessHandler customSuccessHandler() {
         return (HttpServletRequest request, HttpServletResponse response, org.springframework.security.core.Authentication authentication) -> {
             // Get the user's role
-            String role = authentication.getAuthorities().stream()
-                    .findFirst() // Assumes a single role per user
-                    .map(authority -> authority.getAuthority())
-                    .orElse("");
+        	String role = authentication.getAuthorities().iterator().hasNext() 
+                    ? authentication.getAuthorities().iterator().next().getAuthority() 
+                    : "";
 
             // Route based on role
             if (role.equals("ROLE_CUSTOMER")) {
@@ -175,23 +180,3 @@ public class SpringConfigurations {
         };
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
