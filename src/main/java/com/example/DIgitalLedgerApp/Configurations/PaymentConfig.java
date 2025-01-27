@@ -1,40 +1,40 @@
-package com.example.DIgitalLedgerApp.Configurations;
-
-import org.springframework.context.annotation.Configuration;
-
-
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.rest.OAuthTokenCredential;
-import com.paypal.base.rest.PayPalRESTException;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-import java.util.HashMap;
-import java.util.Map;
-
-@Configuration
-public class PaymentConfig {
-
-    private String clientId = "AXo7kx1j4VmVfLmFHYzAIxhfthto0z3EOO_SKvZzQmlRNzT3XePsyDClpKsmAh64NamMun96iK016nO-";
-    private String clientSecret = "ENKC7zsKh7K027A-hrGKBQ8ePig2ZpyyJKEcZxKXl7AvNPUsZNfXvXkMBu1q-wjK0LpgmV449qHuzMLr";
-    private String mode = "sandbox"; // Change to 'live' for production
-
-    @Bean
-    public Map<String, String> paypalSdkConfig() {
-        Map<String, String> configMap = new HashMap<>();
-        configMap.put("mode", mode);
-        return configMap;
-    }
-
-    @Bean
-    public OAuthTokenCredential oAuthTokenCredential() {
-        return new OAuthTokenCredential(clientId, clientSecret, paypalSdkConfig());
-    }
-
-    @Bean
-    public APIContext apiContext() throws PayPalRESTException {
-        APIContext context = new APIContext(oAuthTokenCredential().getAccessToken());
-        context.setConfigurationMap(paypalSdkConfig());
-        return context;
-    }
-}
+//package com.example.DIgitalLedgerApp.Configurations;
+//
+//import org.springframework.context.annotation.Configuration;
+//
+//
+//import com.paypal.base.rest.APIContext;
+//import com.paypal.base.rest.OAuthTokenCredential;
+//import com.paypal.base.rest.PayPalRESTException;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
+//
+//import java.util.HashMap;
+//import java.util.Map;
+//
+//@Configuration
+//public class PaymentConfig {
+//
+//    private String clientId = "AXo7kx1j4VmVfLmFHYzAIxhfthto0z3EOO_SKvZzQmlRNzT3XePsyDClpKsmAh64NamMun96iK016nO-";
+//    private String clientSecret = "ENKC7zsKh7K027A-hrGKBQ8ePig2ZpyyJKEcZxKXl7AvNPUsZNfXvXkMBu1q-wjK0LpgmV449qHuzMLr";
+//    private String mode = "sandbox"; // Change to 'live' for production
+//
+//    @Bean
+//    public Map<String, String> paypalSdkConfig() {
+//        Map<String, String> configMap = new HashMap<>();
+//        configMap.put("mode", mode);
+//        return configMap;
+//    }
+//
+//    @Bean
+//    public OAuthTokenCredential oAuthTokenCredential() {
+//        return new OAuthTokenCredential(clientId, clientSecret, paypalSdkConfig());
+//    }
+//
+//    @Bean
+//    public APIContext apiContext() throws PayPalRESTException {
+//        APIContext context = new APIContext(oAuthTokenCredential().getAccessToken());
+//        context.setConfigurationMap(paypalSdkConfig());
+//        return context;
+//    }
+//}

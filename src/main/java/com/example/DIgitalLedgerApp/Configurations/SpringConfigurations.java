@@ -111,6 +111,7 @@ public class SpringConfigurations {
                 .oauth2Login(oauth -> oauth
                         .loginPage("/login")
                         .successHandler(oauthsuccesshandler())
+                        .defaultSuccessUrl("/login")
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/customer/**").hasRole("CUSTOMER") // Restrict access to customer pages
@@ -131,6 +132,7 @@ public class SpringConfigurations {
             String name = user.getAttribute("name").toString();
 
             Customers cust1 = cr.getByEmail(email).orElse(null);
+            System.out.println("came to oauth");
 
             if (cust1 == null) {
                 Customers cust = new Customers();

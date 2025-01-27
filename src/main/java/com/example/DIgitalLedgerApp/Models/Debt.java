@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import java.time.LocalDateTime;
 
@@ -30,6 +31,12 @@ public class Debt {
     
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime addedAt;
+    
+    @OneToOne
+    @JoinColumn(name="PaymentStatus")
+	private DebtPayments PaymentStatus;
+    
+    
 
    
 
@@ -100,5 +107,16 @@ public class Debt {
 	public void setPurchaseditems(String purchaseditems) {
 		this.purchaseditems = purchaseditems;
 	}
+	public void setPaymentStatus(DebtPayments paymentStatus) {
+        this.PaymentStatus = paymentStatus;
+        if (PaymentStatus != null) {
+        	PaymentStatus.setDebt(this); // Ensure bidirectional consistency
+        }
+    }
+
+	public DebtPayments getPaymentStatus() {
+		return PaymentStatus;
+	}
+	
     
 }

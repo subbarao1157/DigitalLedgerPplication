@@ -3,15 +3,16 @@
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="RetailerNavbar.jsp" %>
+<%@ include file="customerNavbar.jsp" %>
 <%
-    // Assuming the debts list is set as an attribute in the request
     List<Debt> debts = (List<Debt>) request.getAttribute("debts");
     double totalAmount = (request.getAttribute("totalamount") != null) ? (double) request.getAttribute("totalamount") : 0.0;
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <title>Customer Debts</title>
     <style>
         table {
@@ -29,41 +30,43 @@
     </style>
 </head>
 <body>
-    <h1>Total Debt : <%= totalAmount %></h1>
     <table>
         <thead>
             <tr>
-                <th>Customers</th>
+                <th>Retailer</th>
                 <th>Amount</th>
-                <th>Remind</th>
+                <th>Payment Status</th>
             </tr>
         </thead>
         <tbody>
             <% if (debts != null) { 
                 for (Debt debt : debts) { 
-                	if(debt.getAddedAt()!=null){
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss");
-                    String formattedDate = debt.getAddedAt().format(formatter);
-                	
+                    if (debt.getPaymentStatus() != null && 
+                        "PAYMENT DONE".equals(debt.getPaymentStatus().getDebtStatus()) && 
+                        debt.getAddedAt() != null) {
+
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss");
+                        String formattedDate = debt.getAddedAt().format(formatter);
             %>
                 <tr>
                     <td>
-                        <%= debt.getCustomer().getUsername() %> <br>
-                        <p>Mobile: <%= debt.getCustomer().getMobileNumber() %></p>
-                        
+                        <%= debt.getRetailer().getName() %> <br>
+                        <p>Shop Name: <%= debt.getRetailer().getShopname() %></p>
+                        <p>Proprietor Mobile: <%= debt.getRetailer().getMobile() %></p>
                     </td>
                     <td>
-                        ₹ <%= debt.getAmount() %> <br>
+                        ₹<%= debt.getAmount() %> <br>
                         <p>Purchased: <%= debt.getPurchaseditems() %></p>
                         <p><%= formattedDate %></p>
                     </td>
                     <td>
-                        <button>Remind</button>
+                        <p><%= debt.getPaymentStatus().getDebtStatus() %></p>
                     </td>
                 </tr>
-            <% } 
-            }  
-         } %>
+            <% 
+                    } 
+                } 
+            } %>
         </tbody>
     </table>
 </body>

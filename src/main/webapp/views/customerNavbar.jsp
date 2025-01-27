@@ -64,6 +64,7 @@
             <a href="/logout">Logout</a>
             <a href="profile">Profile</a>
             <a href="issue">Raise Issue</a>
+            <a href="payment-history">History</a>
             <a href="my-debts">My Debts</a>
         </div>
     </nav>
